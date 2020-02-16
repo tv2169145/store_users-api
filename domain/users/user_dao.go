@@ -2,6 +2,7 @@ package users
 
 import (
 	"fmt"
+	"github.com/tv2169145/store_users-api/utils/date_utils"
 	"github.com/tv2169145/store_users-api/utils/errors"
 )
 
@@ -30,6 +31,7 @@ func (u *User) Save() *errors.RestErr {
 		}
 		return errors.NewBadRequestError(fmt.Sprintf("user: %d is readly exist", u.Id))
 	}
+	u.DateCreated = date_utils.GetNowString()
 	userDB[u.Id] = u
 	return nil
 }
