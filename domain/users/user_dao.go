@@ -2,36 +2,102 @@ package users
 
 import (
 	"fmt"
-	"github.com/tv2169145/store_users-api/utils/date_utils"
+	"github.com/tv2169145/store_users-api/datasources/mysql/users_db"
 	"github.com/tv2169145/store_users-api/utils/errors"
+	"github.com/tv2169145/store_users-api/utils/mysql_utils"
 )
 
-var (
-	userDB = make(map[int64]*User)
+const (
+	queryInsertUser       = "INSERT INTO users ( first_name, last_name, email, date_created, password, status) VALUES (?, ?, ?, ?, ?, ?);"
+	queryGetUser          = "SELECT id, first_name, last_name, email, date_created, status FROM users WHERE id=?"
+	queryUpdate           = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
+	queryDelete           = "DELETE FROM users WHERE id=?;"
+	queryFindUserByStatus = "SELECT id, first_name, last_name, email, date_created, status FROM users WHERE status=?;"
 )
 
 func (u *User) Get() *errors.RestErr {
-	result := userDB[u.Id]
-	if result == nil {
-		return errors.NewNotFoundError(fmt.Sprintf("user: %d not found", u.Id))
+	stmt, err := users_db.Client.Prepare(queryGetUser)
+	if err != nil {
+		fmt.Println(err)
+		return errors.NewInternalServerError(err.Error())
 	}
-	u.Id = result.Id
-	u.Email = result.Email
-	u.FirstName = result.FirstName
-	u.LastName = result.LastName
-	u.DateCreated = result.DateCreated
+	defer stmt.Close()
+
+	result := stmt.QueryRow(u.Id)
+	if getErr := result.Scan(&u.Id, &u.FirstName, &u.LastName, &u.Email, &u.DateCreated, &u.Status); getErr != nil {
+		return mysql_utils.ParseError(getErr)
+	}
 	return nil
 }
 
 func (u *User) Save() *errors.RestErr {
-	current := userDB[u.Id]
-	if current != nil {
-		if current.Email == u.Email {
-			return errors.NewBadRequestError(fmt.Sprintf("email: %s already registered", u.Email))
-		}
-		return errors.NewBadRequestError(fmt.Sprintf("user: %d is readly exist", u.Id))
+	stmt, err := users_db.Client.Prepare(queryInsertUser)
+	if err != nil {
+		return errors.NewInternalServerError(err.Error())
 	}
-	u.DateCreated = date_utils.GetNowString()
-	userDB[u.Id] = u
+	defer stmt.Close()
+	//result, err := users_db.Client.Exec(queryInsertUser, u.FirstName, u.LastName, u.Email, date_utils.GetNowString())
+
+	insertResult, saveErr := stmt.Exec(u.FirstName, u.LastName, u.Email, u.DateCreated, u.Password, u.Status)
+	if saveErr != nil {
+		return mysql_utils.ParseError(saveErr)
+	}
+	userId, err := insertResult.LastInsertId()
+	if err != nil {
+		return errors.NewInternalServerError("error when trying to get last insert id")
+	}
+	u.Id = userId
 	return nil
+}
+
+func (u *User) Update() *errors.RestErr {
+	stmt, err := users_db.Client.Prepare(queryUpdate)
+	if err != nil {
+		return errors.NewInternalServerError(err.Error())
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(u.FirstName, u.LastName, u.Email, u.Id)
+	if err != nil {
+		return mysql_utils.ParseError(err)
+	}
+	return nil
+}
+
+func (u *User) Delete() *errors.RestErr {
+	stmt, err := users_db.Client.Prepare(queryDelete)
+	if err != nil {
+		return errors.NewInternalServerError(err.Error())
+	}
+	defer stmt.Close()
+	if _, err = stmt.Exec(u.Id); err != nil {
+		return mysql_utils.ParseError(err)
+	}
+	return nil
+}
+
+func (u *User) FindByStatus(status string) (Users, *errors.RestErr) {
+	stmt, err := users_db.Client.Prepare(queryFindUserByStatus)
+	if err != nil {
+		return nil, errors.NewInternalServerError(err.Error())
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(status)
+	if err != nil {
+		return nil, errors.NewInternalServerError(err.Error())
+	}
+	defer rows.Close()
+
+	results := make([]User, 0)
+	for rows.Next() {
+		var user User
+		if err := rows.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Email, &user.DateCreated, &user.Status); err != nil {
+			return nil, mysql_utils.ParseError(err)
+		}
+		results = append(results, user)
+	}
+	if len(results) == 0 {
+		return nil, errors.NewNotFoundError(fmt.Sprintf("no users matching status: %s", status))
+	}
+	return results, nil
 }
