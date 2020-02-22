@@ -15,6 +15,7 @@ var _ = Describe("user_dto", func() {
 				FirstName: "aaaa",
 				LastName:  "bbbb",
 				Email:     "cccc@gmail.com",
+				Password: "1234",
 			}
 		}
 	)

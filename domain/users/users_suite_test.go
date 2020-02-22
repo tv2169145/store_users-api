@@ -3,6 +3,7 @@ package users_test
 import (
 	"database/sql"
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/tv2169145/store_users-api/datasources/mysql/users_db"
 	"testing"
 
 	. "github.com/onsi/ginkgo"
@@ -18,9 +19,9 @@ var (
 	//gr repos.GlobalRepository
 
 	truncateUsers = func() {
-		mock.ExpectQuery("TRUNCATE users").WillReturnRows(sqlmock.NewRows([]string{}))
-		_, err = dbSql.Query("TRUNCATE users")
-		Ω(err).To(BeNil())
+		//mock.ExpectQuery("TRUNCATE users").WillReturnRows(sqlmock.NewRows([]string{}))
+		//_, err = dbSql.Query("TRUNCATE users")
+		//Ω(err).To(BeNil())
 	}
 
 	clearDatabase = func() {
@@ -44,11 +45,12 @@ var (
 		dbSql, mock, err = sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 		Ω(err).To(BeNil())
 		db = dbSql
+		users_db.Client = dbSql
 	})
 
 	_ = AfterSuite(func() {
-		err = mock.ExpectationsWereMet()
-		Ω(err).To(BeNil())
+		//err = mock.ExpectationsWereMet()
+		//Ω(err).To(BeNil())
 	})
 )
 

@@ -5,7 +5,6 @@ import (
 	"github.com/tv2169145/store_users-api/datasources/mysql/users_db"
 	"github.com/tv2169145/store_users-api/logger"
 	"github.com/tv2169145/store_users-api/utils/errors"
-	"github.com/tv2169145/store_users-api/utils/mysql_utils"
 )
 
 const (
