@@ -5,6 +5,9 @@ import (
 	"github.com/tv2169145/store_users-api/datasources/mysql/users_db"
 	"github.com/tv2169145/store_users-api/logger"
 	"github.com/tv2169145/store_users-api/utils/errors"
+	"github.com/tv2169145/store_users-api/utils/mysql_utils"
+	"golang.org/x/crypto/bcrypt"
+	"strings"
 )
 
 const (
@@ -13,6 +16,7 @@ const (
 	queryUpdate           = "UPDATE users SET first_name=?, last_name=?, email=? WHERE id=?;"
 	queryDelete           = "DELETE FROM users WHERE id=?;"
 	queryFindUserByStatus = "SELECT id, first_name, last_name, email, date_created, status FROM users WHERE status=?;"
+	queryFindByEmailAndPassword = "SELECT id, first_name, last_name, email, password, date_created, status FROM users WHERE email=? AND status=?;"
 )
 
 func (u *User) Get() *errors.RestErr {
@@ -111,4 +115,39 @@ func (u *User) FindByStatus(status string) (Users, *errors.RestErr) {
 		return nil, errors.NewNotFoundError(fmt.Sprintf("no users matching status: %s", status))
 	}
 	return results, nil
+}
+
+func (u *User) FindByEmailAndPassword() *errors.RestErr {
+	stmt, err := users_db.Client.Prepare(queryFindByEmailAndPassword)
+	if err != nil {
+		logger.Error("error when trying to prepare get user by email and password statement", err)
+		return errors.NewInternalServerError("database error")
+	}
+	defer stmt.Close()
+	inputPassword := u.Password
+	result := stmt.QueryRow(u.Email, StatusActive)
+	if getErr := result.Scan(&u.Id, &u.FirstName, &u.LastName, &u.Email, &u.Password, &u.DateCreated, &u.Status); getErr != nil {
+		if strings.Contains(getErr.Error(), mysql_utils.ErrorNoRows) {
+			return errors.NewNotFoundError("no user found in db")
+		}
+		logger.Error("error when trying to get user by email and password", err)
+		return errors.NewInternalServerError("database error")
+	}
+	if authErr := u.Authenticate(inputPassword); authErr != nil {
+		return authErr
+	}
+	//u.Id = getUser.Id
+	//u.FirstName = getUser.FirstName
+	//u.LastName = getUser.LastName
+	//u.Email = getUser.Email
+	//u.DateCreated = getUser.DateCreated
+	//u.Status = getUser.Status
+	return nil
+}
+
+func (u *User) Authenticate(password string) *errors.RestErr {
+	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password)); err != nil {
+		return errors.NewBadRequestError("password error")
+	}
+	return nil
 }
