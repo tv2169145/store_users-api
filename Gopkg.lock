@@ -188,11 +188,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:99eb48cd32e243d79ac0084960688819e60d1d5dfb3ab329e1649d966929ddb1"
+  digest = "1:c5a3dcca898b946755e0f63d256ea30f6584908b09fa4a89e396eb88f390eefb"
   name = "github.com/tv2169145/store_utils-go"
   packages = ["rest_errors"]
   pruneopts = "UT"
-  revision = "683f26ece25cd242d339fb9d0f318fc66f90149f"
+  revision = "f6cda5b940427ce1b0c0049415beb5cd9eb6f226"
 
 [[projects]]
   digest = "1:58582db700776596d743a53a27e3588dd41c2615f82082f55fb99f22e30bbb66"
@@ -325,7 +325,7 @@
     "go/types/typeutil",
   ]
   pruneopts = "UT"
-  revision = "c312e98713c27a5d334454be5117a17cb36feaed"
+  revision = "4303120df7d88143fd0803f9144b4f47ad3ea9fb"
 
 [[projects]]
   branch = "master"
@@ -362,12 +362,12 @@
   revision = "c131134a1947e9afd9cecfe11f4c6dff0732ae58"
 
 [[projects]]
-  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
+  digest = "1:55b110c99c5fdc4f14930747326acce56b52cfce60b24b1c03ef686ac0e46bb1"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
-  version = "v2.2.2"
+  revision = "53403b58ad1b561927d19068c655246f2db79d48"
+  version = "v2.2.8"
 
 [solve-meta]
   analyzer-name = "dep"

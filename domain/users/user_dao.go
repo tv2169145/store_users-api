@@ -20,7 +20,7 @@ const (
 	queryFindByEmailAndPassword = "SELECT id, first_name, last_name, email, password, date_created, status FROM users WHERE email=? AND status=?;"
 )
 
-func (u *User) Get() *rest_errors.RestErr {
+func (u *User) Get() rest_errors.RestErr {
 	stmt, err := users_db.Client.Prepare(queryGetUser)
 	if err != nil {
 		logger.Error("error when trying to prepare get user statement", err)
@@ -36,7 +36,7 @@ func (u *User) Get() *rest_errors.RestErr {
 	return nil
 }
 
-func (u *User) Save() *rest_errors.RestErr {
+func (u *User) Save() rest_errors.RestErr {
 	stmt, err := users_db.Client.Prepare(queryInsertUser)
 	if err != nil {
 		logger.Error("error when trying to prepare save user statement", err)
@@ -59,7 +59,7 @@ func (u *User) Save() *rest_errors.RestErr {
 	return nil
 }
 
-func (u *User) Update() *rest_errors.RestErr {
+func (u *User) Update() rest_errors.RestErr {
 	stmt, err := users_db.Client.Prepare(queryUpdate)
 	if err != nil {
 		logger.Error("error when trying to prepare update user statement", err)
@@ -74,7 +74,7 @@ func (u *User) Update() *rest_errors.RestErr {
 	return nil
 }
 
-func (u *User) Delete() *rest_errors.RestErr {
+func (u *User) Delete() rest_errors.RestErr {
 	stmt, err := users_db.Client.Prepare(queryDelete)
 	if err != nil {
 		logger.Error("error when trying to prepare delete user statement", err)
@@ -88,7 +88,7 @@ func (u *User) Delete() *rest_errors.RestErr {
 	return nil
 }
 
-func (u *User) FindByStatus(status string) (Users, *rest_errors.RestErr) {
+func (u *User) FindByStatus(status string) (Users, rest_errors.RestErr) {
 	stmt, err := users_db.Client.Prepare(queryFindUserByStatus)
 	if err != nil {
 		logger.Error("error when trying prepare to get active users", err)
@@ -118,7 +118,7 @@ func (u *User) FindByStatus(status string) (Users, *rest_errors.RestErr) {
 	return results, nil
 }
 
-func (u *User) FindByEmailAndPassword() *rest_errors.RestErr {
+func (u *User) FindByEmailAndPassword() rest_errors.RestErr {
 	stmt, err := users_db.Client.Prepare(queryFindByEmailAndPassword)
 	if err != nil {
 		logger.Error("error when trying to prepare get user by email and password statement", err)
@@ -146,7 +146,7 @@ func (u *User) FindByEmailAndPassword() *rest_errors.RestErr {
 	return nil
 }
 
-func (u *User) Authenticate(password string) *rest_errors.RestErr {
+func (u *User) Authenticate(password string) rest_errors.RestErr {
 	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password)); err != nil {
 		return rest_errors.NewBadRequestError("password error")
 	}
