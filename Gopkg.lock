@@ -188,11 +188,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c5a3dcca898b946755e0f63d256ea30f6584908b09fa4a89e396eb88f390eefb"
+  digest = "1:95abb1585abf2e1aa31eb130f7bb9f105d4b7f082aa54c5fba1c8cadf0f69705"
   name = "github.com/tv2169145/store_utils-go"
   packages = ["rest_errors"]
   pruneopts = "UT"
-  revision = "f6cda5b940427ce1b0c0049415beb5cd9eb6f226"
+  revision = "a5a39efdae16e1b88ef42b0325132f11c92010d9"
 
 [[projects]]
   digest = "1:58582db700776596d743a53a27e3588dd41c2615f82082f55fb99f22e30bbb66"
@@ -219,7 +219,7 @@
   version = "v1.5.0"
 
 [[projects]]
-  digest = "1:7cf33d98a2a8d4ddb940ee365e1d93c334de32813767cf2e78bfb2774f6d78ec"
+  digest = "1:37db8edb1893509ed6230cb160a98ff5dc8fe4f82b6818baa88af4b478ce3824"
   name = "go.uber.org/zap"
   packages = [
     ".",
@@ -230,8 +230,8 @@
     "zapcore",
   ]
   pruneopts = "UT"
-  revision = "c89bd3c833f56cad3bc6dfa104b9c6d144526145"
-  version = "v1.14.0"
+  revision = "2aa9fa25da83bdfff756c36a91442edc9a84576c"
+  version = "v1.14.1"
 
 [[projects]]
   branch = "master"
@@ -242,18 +242,7 @@
     "blowfish",
   ]
   pruneopts = "UT"
-  revision = "f7b00557c8c46a1ea4b035cae84f52028c2c0564"
-
-[[projects]]
-  branch = "master"
-  digest = "1:3403849330a8ab0adfff079dc6c6ad7bd8961a4a6891d05b9797063b4024f623"
-  name = "golang.org/x/lint"
-  packages = [
-    ".",
-    "golint",
-  ]
-  pruneopts = "UT"
-  revision = "738671d3881b9731cc63024d5d88cf28db875626"
+  revision = "1b76d66859c6111b3d5c3ea6600ea44dc188bf12"
 
 [[projects]]
   branch = "master"
@@ -271,11 +260,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:8d59aa6f03198132e0ca3bf998677f9698e1e27fc67976c85d85086ac3496530"
+  digest = "1:3db6d378edb70703966c0eebd90a98884b8a8985c146d07fa15ca7ef6d91fe4c"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "5c8b2ff67527cb88b770f693cebf3799036d8bc0"
+  revision = "5766fd39f98ddd8d769ad4aedcee557dd28de90f"
 
 [[projects]]
   digest = "1:28deae5fe892797ff37a317b5bcda96d11d1c90dadd89f1337651df3bc4c586e"
@@ -316,19 +305,6 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:1050c11c1d756701b8a247428e7af6cdc4f45b5bca163ae8b9c78ea0e2455e87"
-  name = "golang.org/x/tools"
-  packages = [
-    "go/ast/astutil",
-    "go/gcexportdata",
-    "go/internal/gcimporter",
-    "go/types/typeutil",
-  ]
-  pruneopts = "UT"
-  revision = "4303120df7d88143fd0803f9144b4f47ad3ea9fb"
-
-[[projects]]
-  branch = "master"
   digest = "1:918a46e4a2fb83df33f668f5a6bd51b2996775d073fce1800d3ec01b0a5ddd2b"
   name = "golang.org/x/xerrors"
   packages = [
@@ -362,12 +338,12 @@
   revision = "c131134a1947e9afd9cecfe11f4c6dff0732ae58"
 
 [[projects]]
-  digest = "1:55b110c99c5fdc4f14930747326acce56b52cfce60b24b1c03ef686ac0e46bb1"
+  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "53403b58ad1b561927d19068c655246f2db79d48"
-  version = "v2.2.8"
+  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
+  version = "v2.2.2"
 
 [solve-meta]
   analyzer-name = "dep"
