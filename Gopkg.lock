@@ -188,11 +188,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:95abb1585abf2e1aa31eb130f7bb9f105d4b7f082aa54c5fba1c8cadf0f69705"
+  digest = "1:7412ddec539996b88b4c885e2aa885ea26ca9875d611f4695eca3a878b966000"
   name = "github.com/tv2169145/store_utils-go"
-  packages = ["rest_errors"]
+  packages = [
+    "logger",
+    "rest_errors",
+  ]
   pruneopts = "UT"
-  revision = "a5a39efdae16e1b88ef42b0325132f11c92010d9"
+  revision = "c884329ef4c913bc886435cf16307a3e14e9bec4"
 
 [[projects]]
   digest = "1:58582db700776596d743a53a27e3588dd41c2615f82082f55fb99f22e30bbb66"
@@ -242,7 +245,7 @@
     "blowfish",
   ]
   pruneopts = "UT"
-  revision = "1b76d66859c6111b3d5c3ea6600ea44dc188bf12"
+  revision = "891825fb96dfc23279b4a42f710d49e78e05b333"
 
 [[projects]]
   branch = "master"
@@ -256,15 +259,15 @@
     "publicsuffix",
   ]
   pruneopts = "UT"
-  revision = "244492dfa37ae2ce87222fd06250a03160745faa"
+  revision = "118fecf932d8fea033f3b7aca66fba22cfdd517d"
 
 [[projects]]
   branch = "master"
-  digest = "1:3db6d378edb70703966c0eebd90a98884b8a8985c146d07fa15ca7ef6d91fe4c"
+  digest = "1:4a1984ad1b48641ef91f73689012cdba27ed1eb94aeee1aa0b421e2208530a17"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "5766fd39f98ddd8d769ad4aedcee557dd28de90f"
+  revision = "328b4cd54aaeaba222936f16d417999f7e521f7b"
 
 [[projects]]
   digest = "1:28deae5fe892797ff37a317b5bcda96d11d1c90dadd89f1337651df3bc4c586e"
@@ -338,12 +341,12 @@
   revision = "c131134a1947e9afd9cecfe11f4c6dff0732ae58"
 
 [[projects]]
-  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
+  digest = "1:55b110c99c5fdc4f14930747326acce56b52cfce60b24b1c03ef686ac0e46bb1"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
-  version = "v2.2.2"
+  revision = "53403b58ad1b561927d19068c655246f2db79d48"
+  version = "v2.2.8"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -355,9 +358,8 @@
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/tv2169145/store_oauth-go/oauth",
+    "github.com/tv2169145/store_utils-go/logger",
     "github.com/tv2169145/store_utils-go/rest_errors",
-    "go.uber.org/zap",
-    "go.uber.org/zap/zapcore",
     "golang.org/x/crypto/bcrypt",
   ]
   solver-name = "gps-cdcl"
