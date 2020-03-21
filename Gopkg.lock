@@ -177,25 +177,22 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:fb1965e8a15aae35f9a061aeea9050dd095b4796c67df0636f39011424e06025"
+  digest = "1:775c5c21e57ca5d09226fcdaf05b54fb9ed919983ed6529e71b1b529da121ccd"
   name = "github.com/tv2169145/store_oauth-go"
-  packages = [
-    "oauth",
-    "oauth/errors",
-  ]
+  packages = ["oauth"]
   pruneopts = "UT"
-  revision = "aaa50f418feaed616da7e0216a59719d63af569c"
+  revision = "b8b2f0b81904c618735ef387780cbc264cb7b8a7"
 
 [[projects]]
   branch = "master"
-  digest = "1:7412ddec539996b88b4c885e2aa885ea26ca9875d611f4695eca3a878b966000"
+  digest = "1:39e2842e83cf6ed89e74045dc64023163f798113d6d215ec388377010aa97637"
   name = "github.com/tv2169145/store_utils-go"
   packages = [
     "logger",
     "rest_errors",
   ]
   pruneopts = "UT"
-  revision = "c884329ef4c913bc886435cf16307a3e14e9bec4"
+  revision = "1dbc8c97a562aefb1e5a5fda63b54faab98f48d4"
 
 [[projects]]
   digest = "1:58582db700776596d743a53a27e3588dd41c2615f82082f55fb99f22e30bbb66"
